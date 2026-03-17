@@ -1,0 +1,20 @@
+{
+  "name": "sec0-oss-workspace",
+  "private": true,
+  "description": "Public OSS workspace for the Sec0 SDK",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=sec0",
+    "typecheck": "npm run typecheck --workspace=sec0",
+    "test": "npm run test --workspace=sec0",
+    "lint": "npm run lint --workspace=sec0",
+    "pack:check": "npm run pack:dry-run --workspace=sec0",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run pack:check"
+  }
+}

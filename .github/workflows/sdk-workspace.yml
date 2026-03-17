@@ -1,0 +1,36 @@
+name: SDK Workspace
+
+on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "pnpm-workspace.yaml"
+      - "tools/**"
+      - "packages/**"
+      - ".github/workflows/sdk-workspace.yml"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "pnpm-workspace.yaml"
+      - "tools/**"
+      - "packages/**"
+      - ".github/workflows/sdk-workspace.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install
+        run: npm install
+      - name: Verify Workspace
+        run: npm run verify

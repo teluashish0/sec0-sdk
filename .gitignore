@@ -1,0 +1,14 @@
+node_modules
+.next/
+dist/
+logs/
+*.log
+*.pid
+*.tsbuildinfo
+*.sqlite
+*.sqlite3
+.env
+.env.*.local
+.env.local
+.DS_Store
+.worm/

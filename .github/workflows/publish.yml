@@ -1,0 +1,36 @@
+name: Publish SDK (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Enable publish commands (requires manual opt-in)
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PUBLISH: ${{ github.event.inputs.publish == 'true' && '1' || '0' }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Verify
+        run: npm run verify
+
+      - name: Publish sec0
+        working-directory: packages/sec0
+        run: npm publish --provenance --access public

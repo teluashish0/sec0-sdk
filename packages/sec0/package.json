@@ -1,0 +1,131 @@
+{
+  "name": "sec0",
+  "private": false,
+  "version": "0.1.0",
+  "description": "Open-source Sec0 TypeScript SDK with decorators, middleware, gateway helpers, guard, audit, and protocol utilities",
+  "license": "Apache-2.0",
+  "author": "WormAI, Inc.",
+  "packageManager": "pnpm@9.6.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./policy": {
+      "types": "./dist/policy/index.d.ts",
+      "default": "./dist/policy/index.js"
+    },
+    "./evaluator": {
+      "types": "./dist/evaluator/index.d.ts",
+      "default": "./dist/evaluator/index.js"
+    },
+    "./signer": {
+      "types": "./dist/signer/index.d.ts",
+      "default": "./dist/signer/index.js"
+    },
+    "./runtime-adapter": {
+      "types": "./dist/runtime-adapter/index.d.ts",
+      "default": "./dist/runtime-adapter/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "default": "./dist/core/index.js"
+    },
+    "./agent-state": {
+      "types": "./dist/agent-state/index.d.ts",
+      "default": "./dist/agent-state/index.js"
+    },
+    "./mandate-ap2": {
+      "types": "./dist/mandate-ap2/index.d.ts",
+      "default": "./dist/mandate-ap2/index.js"
+    },
+    "./audit": {
+      "types": "./dist/audit/index.d.ts",
+      "default": "./dist/audit/index.js"
+    },
+    "./otel": {
+      "types": "./dist/otel/index.d.ts",
+      "default": "./dist/otel/index.js"
+    },
+    "./middleware": {
+      "types": "./dist/middleware/index.d.ts",
+      "default": "./dist/middleware/index.js"
+    },
+    "./escalation": {
+      "types": "./dist/escalation/index.d.ts",
+      "default": "./dist/escalation/index.js"
+    },
+    "./guard": {
+      "types": "./dist/guard/index.d.ts",
+      "default": "./dist/guard/index.js"
+    },
+    "./instrumentation": {
+      "types": "./dist/instrumentation/index.d.ts",
+      "default": "./dist/instrumentation/index.js"
+    },
+    "./gateway": {
+      "types": "./dist/gateway/index.d.ts",
+      "default": "./dist/gateway/index.js"
+    },
+    "./integrations/openclaw": {
+      "types": "./dist/integrations/openclaw/index.d.ts",
+      "default": "./dist/integrations/openclaw/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "public",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
+    "pack:dry-run": "npm pack --dry-run",
+    "boundary:check": "node ../../tools/check-package-boundaries.mjs . sec0 \"from\\\\s+[\\\"']@sec0/client-sdk(?:[\\\"'/])\" \"from\\\\s+[\\\"']@sec0/hosted(?:[\\\"'/])\" \"from\\\\s+[\\\"'][^\\\"']*sec0-backend[^\\\"']*[\\\"']\"",
+    "lint": "npm run boundary:check && npm run typecheck",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.52.1",
+    "@opentelemetry/exporter-trace-otlp-http": "0.207.0",
+    "@opentelemetry/resources": "^1.30.1",
+    "@opentelemetry/sdk-metrics": "^1.30.1",
+    "@opentelemetry/sdk-trace-base": "^1.30.1",
+    "@opentelemetry/sdk-trace-node": "^1.30.1",
+    "@opentelemetry/semantic-conventions": "^1.37.0",
+    "@sinclair/typebox": "^0.34.41",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "did-jwt": "^7.4.7",
+    "did-resolver": "^4.1.0",
+    "ioredis": "5.4.1",
+    "js-yaml": "^4.1.0",
+    "jose": "5.9.6",
+    "key-did-resolver": "^4.0.0",
+    "tweetnacl": "^1.0.3",
+    "web-did-resolver": "^2.0.31",
+    "yaml": "^2.8.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "20.19.23",
+    "rimraf": "^5.0.10",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  }
+}
