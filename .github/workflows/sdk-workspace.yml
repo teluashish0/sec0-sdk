@@ -25,14 +25,8 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      SEC0_RUNTIME_PROTOCOL_SPEC: ${{ github.workspace }}/.deps/sec0-runtime-protocol/openapi/runtime-enforcement.yaml
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: teluashish0/sec0-runtime-protocol
-          path: .deps/sec0-runtime-protocol
       - uses: actions/setup-node@v4
         with:
           node-version: 20

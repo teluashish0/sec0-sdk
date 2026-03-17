@@ -18,13 +18,8 @@ jobs:
     env:
       PUBLISH: ${{ github.event.inputs.publish == 'true' && '1' || '0' }}
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      SEC0_RUNTIME_PROTOCOL_SPEC: ${{ github.workspace }}/.deps/sec0-runtime-protocol/openapi/runtime-enforcement.yaml
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-        with:
-          repository: teluashish0/sec0-runtime-protocol
-          path: .deps/sec0-runtime-protocol
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
