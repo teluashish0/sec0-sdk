@@ -2,7 +2,7 @@
   <img src="public/sec0_logo.png" alt="Sec0 logo" width="70">
 </p>
 
-<h1 align="center">sec0-sdk</h1>
+<h1 align="center">sec0</h1>
 
 <p align="center"><strong>Securing Rogue Agents</strong></p>
 <p align="center"><em>Open-source runtime safety and data curation layer for safe, continuous agent improvement</em></p>
