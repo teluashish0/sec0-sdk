@@ -41,6 +41,6 @@ jobs:
         with:
           node-version: 20
       - name: Install
-        run: npm install
+        run: npm ci
       - name: Verify Repo
         run: npm run verify
