@@ -23,7 +23,7 @@
 
 ---
 
-[![Sec0 Demo: Runtime Guardrails That Adapt to Context](https://img.youtube.com/vi/HrPb13ZYa0M/hqdefault.jpg)](https://youtu.be/HrPb13ZYa0M)
+[![Sec0 Demo: Runtime Guardrails That Adapt to Context](./assets/sec0-demo-thumbnail.png)](https://youtu.be/HrPb13ZYa0M)
 
 ## What Is Sec0?
 Sec0 is an open-source SDK and runtime infrastructure for governing AI workflows with context-aware guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, policy outcomes, and human-in-the-loop interventions to support safe, continuous agent improvement.
