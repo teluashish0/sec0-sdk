@@ -15,8 +15,8 @@ describe("sec0-sdk package surface", () => {
   const packageJson = readJson(path.join(packageDir, "package.json"));
   const middlewareIndexPath = path.join(packageDir, "src", "middleware", "index.ts");
 
-  it("keeps the canonical OSS sec0-sdk export surface on the workspace package", () => {
-    expect(packageJson.name).toBe("sec0-sdk");
+  it("keeps the legacy standalone export surface on the workspace package", () => {
+    expect(packageJson.name).toBe("sec0-sdk-legacy");
 
     const expectedSubpaths = [
       ".",

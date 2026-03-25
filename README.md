@@ -345,10 +345,6 @@ signing:
 privacy:
   redact_outputs: false
   store_raw_payloads: false
-  artifact_retention:
-    public: "30d"
-    pii: "7d"
-    phi: "7d"
 
 tools:
   allowlist:
@@ -545,7 +541,7 @@ const guard = createSec0Guard({
 });
 ```
 
-Use [`apps/sec0-approvals-bridge`](https://docs.sec0.ai/docs/approvals-integration) for the reference Discord/Telegram approvals worker, or replace the transport with your own adapter. If you are integrating OpenClaw/Moltbot, pair your host hooks with `createMoltbotEscalationManager(...)` from `sec0-sdk/integrations/openclaw` instead of re-implementing create/poll/wait logic in the app.
+Use [`packages/approvals-bridge`](../approvals-bridge/README.md) for the reference Discord/Telegram approvals worker, or replace the transport with your own adapter. If you are integrating OpenClaw/Moltbot, pair your host hooks with `createMoltbotEscalationManager(...)` from `sec0-sdk/integrations/openclaw` instead of re-implementing create/poll/wait logic in the app.
 
 ### Integration Notes
 

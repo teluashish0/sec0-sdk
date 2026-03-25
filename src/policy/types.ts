@@ -108,13 +108,7 @@ export interface PolicyObject {
     allowlist?: string[];
     deny_if_unpinned_version?: boolean;
     scan_on_change_only?: boolean;
-    block_on_change?: boolean;
     block_on_severity?: Severity;
-  };
-  privacy: {
-    redact_outputs: boolean;
-    store_raw_payloads: boolean;
-    artifact_retention: { public: string; pii: string; phi: string };
   };
   side_effects: {
     require_idempotency_key: boolean;

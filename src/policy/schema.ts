@@ -9,7 +9,6 @@ export const policySchema = {
     "signing",
     "observability",
     "tools",
-    "privacy",
     "side_effects",
     "enforcement",
     "sec0_export"
@@ -89,31 +88,7 @@ export const policySchema = {
         },
         deny_if_unpinned_version: { type: "boolean" },
         scan_on_change_only: { type: "boolean" },
-        block_on_change: { type: "boolean" },
         block_on_severity: { type: "string", enum: ["low", "medium", "high", "critical"] }
-      }
-    },
-    privacy: {
-      type: "object",
-      required: [
-        "redact_outputs",
-        "store_raw_payloads",
-        "artifact_retention"
-      ],
-      additionalProperties: false,
-      properties: {
-        redact_outputs: { type: "boolean" },
-        store_raw_payloads: { type: "boolean" },
-        artifact_retention: {
-          type: "object",
-          required: ["public", "pii", "phi"],
-          additionalProperties: false,
-          properties: {
-            public: { type: "string" },
-            pii: { type: "string" },
-            phi: { type: "string" }
-          }
-        }
       }
     },
     side_effects: {

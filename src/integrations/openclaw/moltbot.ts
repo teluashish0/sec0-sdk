@@ -161,7 +161,6 @@ type Sec0SkillScannerConfig = {
   onScan?: SkillScanHook;
   cacheTtlMs?: number;
   scanOnChangeOnly?: boolean;
-  blockOnChange?: boolean;
   blockOnSeverity?: SkillSeverity;
 };
 
@@ -1580,7 +1579,7 @@ function buildAgentGuard(policy: PolicyObject, cfg: Sec0MoltbotConfig): AgentGua
     const strict = complianceCfg.strict !== undefined ? complianceCfg.strict : cfg.mode === "enforce";
     if (strict && !complianceCfg.nlEval) {
       throw new Error(
-        "[sec0-moltbot] Policy contains compliance rules of type 'nl', but compliance.nlEval is not configured.",
+        "[sec0-moltbot] Profile contains compliance rules of type 'nl', but compliance.nlEval is not configured.",
       );
     }
   }
@@ -1775,12 +1774,6 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
         throw new Error("[sec0-moltbot] skills.scanOnChangeOnly must be a boolean when provided.");
       }
       if (
-        resolved.skills.blockOnChange !== undefined &&
-        typeof resolved.skills.blockOnChange !== "boolean"
-      ) {
-        throw new Error("[sec0-moltbot] skills.blockOnChange must be a boolean when provided.");
-      }
-      if (
         resolved.skills.blockOnSeverity !== undefined &&
         !normalizeSkillSeverity(resolved.skills.blockOnSeverity)
       ) {
@@ -1915,7 +1908,7 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
       await refreshControlPlanePolicy();
     }
     if (!policy) {
-      throw new Error("[sec0-moltbot] Policy not loaded.");
+      throw new Error("[sec0-moltbot] Profile not loaded.");
     }
     return policy;
   };
@@ -2010,7 +2003,7 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
       agentGuard = buildAgentGuard(effectivePolicy, resolved);
       agentGuardPolicyHash = currentHash;
       if (useControlPlanePolicy && agentGuard) {
-        logInfo("Policy refreshed from control-plane; agent guard rebuilt.");
+        logInfo("Profile refreshed from control-plane; agent guard rebuilt.");
       }
     }
     return agentGuard;
@@ -2286,7 +2279,6 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
           const policySkillsRaw = (activePolicy as any)?.skills;
           const policySkills = policySkillsRaw && typeof policySkillsRaw === "object" ? policySkillsRaw : {};
           const scanOnChangeOnly = skillConfig.scanOnChangeOnly ?? (policySkills as any)?.scan_on_change_only ?? true;
-          const blockOnChange = skillConfig.blockOnChange ?? (policySkills as any)?.block_on_change ?? false;
           const denyIfUnpinned = (policySkills as any)?.deny_if_unpinned_version === true;
           const skillAllowlist = Array.isArray((policySkills as any)?.allowlist)
             ? (policySkills as any).allowlist.map(String).map((v: string) => v.trim()).filter(Boolean)
@@ -2327,7 +2319,7 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
             skillViolation = "skill_scan_pending";
           }
           if (!skillViolation) {
-            const blockEval = skillScanManager.shouldBlock(skillScan, !!blockOnChange, blockOnSeverity);
+            const blockEval = skillScanManager.shouldBlock(skillScan, blockOnSeverity);
             if (blockEval.block && blockEval.reason) {
               skillViolation = blockEval.reason;
             } else if (skillScan?.status === "fail" && (skillScan.findings || []).length > 0) {

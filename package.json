@@ -1,8 +1,8 @@
 {
-  "name": "sec0-sdk",
-  "private": false,
+  "name": "sec0-sdk-legacy",
+  "private": true,
   "version": "0.2.3",
-  "description": "Open-source runtime safety enforcement and data curation SDK for safe, continuous agent improvement",
+  "description": "Legacy standalone/private Sec0 SDK copy; canonical package lives in packages/sec0.",
   "license": "Apache-2.0",
   "author": "WormAI, Inc.",
   "repository": {

@@ -183,13 +183,9 @@ export class SkillScanManager {
 
   shouldBlock(
     cached: SkillScanCached | undefined,
-    blockOnChange: boolean | undefined,
     threshold?: SkillSeverity
-  ): { block: boolean; reason?: "skill_scan_pending" | "skill_scan_failed"; maxSeverity?: SkillSeverity } {
+  ): { block: boolean; reason?: "skill_scan_failed"; maxSeverity?: SkillSeverity } {
     if (!cached) return { block: false };
-    if (cached.status === "pending") {
-      return { block: !!blockOnChange, reason: blockOnChange ? "skill_scan_pending" : undefined };
-    }
     if (cached.status === "fail" && threshold) {
       const max = maxSkillSeverityOf(cached.findings);
       if (max && skillSeverityRank[max] >= skillSeverityRank[threshold]) {
