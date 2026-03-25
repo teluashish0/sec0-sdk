@@ -10,13 +10,13 @@ function existingPaths(paths: string[]): string[] {
   return paths.filter((filePath) => fs.existsSync(filePath));
 }
 
-describe("sec0-sdk package surface", () => {
+describe("sec0 package surface", () => {
   const packageDir = path.resolve(__dirname, "..");
   const packageJson = readJson(path.join(packageDir, "package.json"));
   const middlewareIndexPath = path.join(packageDir, "src", "middleware", "index.ts");
 
-  it("keeps the legacy standalone export surface on the workspace package", () => {
-    expect(packageJson.name).toBe("sec0-sdk-legacy");
+  it("keeps the canonical OSS sec0 export surface on the workspace package", () => {
+    expect(packageJson.name).toBe("sec0");
 
     const expectedSubpaths = [
       ".",
@@ -32,6 +32,7 @@ describe("sec0-sdk package surface", () => {
       "./middleware",
       "./escalation",
       "./guard",
+      "./review-loop",
       "./instrumentation",
       "./gateway",
       "./integrations/openclaw",
@@ -51,7 +52,7 @@ describe("sec0-sdk package surface", () => {
           path.join(repoRoot, "sec0-sdk", "package.json"),
           path.join(workspaceRoot, "sec0-sdk", "package.json"),
         ]),
-        canonicalName: "sec0-sdk",
+        canonicalName: "sec0",
       },
       {
         paths: existingPaths([

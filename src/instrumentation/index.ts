@@ -2119,7 +2119,7 @@ async function enforceHopPolicy(input: HopEnforcementInput): Promise<HopEnforcem
     try {
       escalationResult = await escalationReporter.create({
         tenant: tenantForEscalation,
-        content: `Profile denied ${identityFields.toolRef} due to ${denialReason}.`,
+        content: `Policy denied ${identityFields.toolRef} due to ${denialReason}.`,
         violation: denialReason,
         message: denialReason.replace(/_/g, ' '),
         severity: severityForViolation(denialReason),

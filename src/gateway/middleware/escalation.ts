@@ -58,7 +58,7 @@ export async function attemptGatewayEscalation(input: {
     const humanEscalationMetadata = buildHumanEscalationMetadata(input.escalationPolicy);
     const result = await reporter.create({
       tenant: input.effectiveTenant,
-      content: `Profile denied ${input.toolRef} due to ${violation}.`,
+      content: `Policy denied ${input.toolRef} due to ${violation}.`,
       violation,
       message: violation.replace(/_/g, " "),
       severity: escalationSeverityForViolation(violation),

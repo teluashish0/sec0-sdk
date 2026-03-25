@@ -110,6 +110,10 @@ export interface PolicyObject {
     scan_on_change_only?: boolean;
     block_on_severity?: Severity;
   };
+  privacy: {
+    redact_outputs: boolean;
+    store_raw_payloads: boolean;
+  };
   side_effects: {
     require_idempotency_key: boolean;
     max_retries: number;

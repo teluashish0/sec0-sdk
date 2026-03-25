@@ -32,7 +32,6 @@ describe("runtime protocol contract", () => {
     expect(RUNTIME_PROTOCOL_VERSION).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
-  // CI checks out sec0-runtime-protocol explicitly; local clones may omit that sibling repo.
   (specPath ? it : it.skip)("keeps the public SDK runtime version aligned with sec0-runtime-protocol", () => {
     expect(RUNTIME_PROTOCOL_VERSION).toBe(readProtocolSpecVersion(specPath!));
   });

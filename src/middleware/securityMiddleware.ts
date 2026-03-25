@@ -391,7 +391,7 @@ export const sec0SecurityMiddleware = (opts: MiddlewareOptions) => (server: McpS
           debug: debugPolicySyncEnabled,
         });
       } catch (err: any) {
-        console.error("[sec0-middleware] Profile sync failed:", err?.message || err);
+        console.error("[sec0-middleware] Policy sync failed:", err?.message || err);
       }
     })();
   }

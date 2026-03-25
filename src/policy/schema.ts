@@ -9,6 +9,7 @@ export const policySchema = {
     "signing",
     "observability",
     "tools",
+    "privacy",
     "side_effects",
     "enforcement",
     "sec0_export"
@@ -89,6 +90,18 @@ export const policySchema = {
         deny_if_unpinned_version: { type: "boolean" },
         scan_on_change_only: { type: "boolean" },
         block_on_severity: { type: "string", enum: ["low", "medium", "high", "critical"] }
+      }
+    },
+    privacy: {
+      type: "object",
+      required: [
+        "redact_outputs",
+        "store_raw_payloads"
+      ],
+      additionalProperties: false,
+      properties: {
+        redact_outputs: { type: "boolean" },
+        store_raw_payloads: { type: "boolean" },
       }
     },
     side_effects: {

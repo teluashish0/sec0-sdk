@@ -96,7 +96,7 @@ export async function createEscalationFromState(input: EscalationAssemblyInput):
       : null;
     const escalationResult = await input.escalationReporter.create({
       tenant: input.tenant,
-      content: `Profile denied ${toolUri(input.server.name, input.tool)} due to ${escalationViolation}.`,
+      content: `Policy denied ${toolUri(input.server.name, input.tool)} due to ${escalationViolation}.`,
       violation: escalationViolation,
       ruleId: typeof primaryFinding?.rule_id === "string" ? primaryFinding.rule_id : null,
       message:

@@ -268,6 +268,9 @@ export async function evaluateGuardDecision(opts: {
         violation = "agent_guard_failed";
         reasons = [violation];
       }
+      if ((policy as any)?.privacy?.redact_outputs === true && findings.length) {
+        redactedContent = redactContent(opts.input.content, undefined, "[REDACTED]");
+      }
     }
 
     const denyOn = normalizePolicyReasonArray((policy as any)?.enforcement?.deny_on);

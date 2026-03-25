@@ -155,7 +155,7 @@ export class AgentGuard {
       for (const r of this.cmds) if (r.test(value)) findings.push({ code: 'agent_command_unsafe', severity: 'high', location: 'input', message: 'Dangerous command detected', evidence: snippet(value, r), path: part.path });
       for (const r of this.toxic) if (r.test(value)) findings.push({ code: 'agent_toxic_content', severity: 'medium', location: 'input', message: 'Toxic or abusive language', evidence: snippet(value, r), path: part.path });
       for (const r of this.malware) if (r.test(value)) findings.push({ code: 'agent_malicious_code', severity: 'high', location: 'input', message: 'Potential malware or exploit code', evidence: snippet(value, r), path: part.path });
-      for (const r of this.policy) if (r.test(value)) findings.push({ code: 'agent_policy_violation', severity: 'medium', location: 'input', message: 'Profile violation request', evidence: snippet(value, r), path: part.path });
+      for (const r of this.policy) if (r.test(value)) findings.push({ code: 'agent_policy_violation', severity: 'medium', location: 'input', message: 'Policy violation request', evidence: snippet(value, r), path: part.path });
       for (const r of this.exfil) if (r.test(value)) findings.push({ code: 'agent_data_exfil', severity: 'high', location: 'input', message: 'Data exfiltration intent', evidence: snippet(value, r), path: part.path });
     }
     if (this.opts.onScanPrompt) {
@@ -176,7 +176,7 @@ export class AgentGuard {
       for (const r of this.secrets) if (r.test(value)) findings.push({ code: 'agent_secret', severity: 'critical', location: 'output', message: 'Possible secret', evidence: snippet(value, r), path: part.path });
       for (const r of this.toxic) if (r.test(value)) findings.push({ code: 'agent_toxic_content', severity: 'medium', location: 'output', message: 'Toxic or abusive language', evidence: snippet(value, r), path: part.path });
       for (const r of this.malware) if (r.test(value)) findings.push({ code: 'agent_malicious_code', severity: 'high', location: 'output', message: 'Potential malware or exploit code', evidence: snippet(value, r), path: part.path });
-      for (const r of this.policy) if (r.test(value)) findings.push({ code: 'agent_policy_violation', severity: 'medium', location: 'output', message: 'Profile violation content', evidence: snippet(value, r), path: part.path });
+      for (const r of this.policy) if (r.test(value)) findings.push({ code: 'agent_policy_violation', severity: 'medium', location: 'output', message: 'Policy violation content', evidence: snippet(value, r), path: part.path });
       for (const r of this.exfil) if (r.test(value)) findings.push({ code: 'agent_data_exfil', severity: 'high', location: 'output', message: 'Data exfiltration content', evidence: snippet(value, r), path: part.path });
     }
     if (this.opts.onScanOutput) {
@@ -248,3 +248,4 @@ function snippet(text: string, re: RegExp): string {
     return text.slice(start, end);
   } catch { return ''; }
 }
+

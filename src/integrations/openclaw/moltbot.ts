@@ -1579,7 +1579,7 @@ function buildAgentGuard(policy: PolicyObject, cfg: Sec0MoltbotConfig): AgentGua
     const strict = complianceCfg.strict !== undefined ? complianceCfg.strict : cfg.mode === "enforce";
     if (strict && !complianceCfg.nlEval) {
       throw new Error(
-        "[sec0-moltbot] Profile contains compliance rules of type 'nl', but compliance.nlEval is not configured.",
+        "[sec0-moltbot] Policy contains compliance rules of type 'nl', but compliance.nlEval is not configured.",
       );
     }
   }
@@ -1908,7 +1908,7 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
       await refreshControlPlanePolicy();
     }
     if (!policy) {
-      throw new Error("[sec0-moltbot] Profile not loaded.");
+      throw new Error("[sec0-moltbot] Policy not loaded.");
     }
     return policy;
   };
@@ -2003,7 +2003,7 @@ export function createMoltbotHooks(cfg: Sec0MoltbotConfig): MoltbotHookBundle {
       agentGuard = buildAgentGuard(effectivePolicy, resolved);
       agentGuardPolicyHash = currentHash;
       if (useControlPlanePolicy && agentGuard) {
-        logInfo("Profile refreshed from control-plane; agent guard rebuilt.");
+        logInfo("Policy refreshed from control-plane; agent guard rebuilt.");
       }
     }
     return agentGuard;

@@ -198,7 +198,7 @@ export function createMoltbotEscalationManager(config: MoltbotEscalationManagerC
       const message =
         typeof finding?.message === "string" && finding.message.trim()
           ? finding.message.trim()
-          : "Profile violation detected";
+          : "Policy violation detected";
       const severity = normalizeSeverity(finding?.severity);
       const ruleId = typeof finding?.ruleId === "string" && finding.ruleId.trim() ? finding.ruleId.trim() : undefined;
 
