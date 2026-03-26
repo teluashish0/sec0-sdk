@@ -4,7 +4,7 @@
 
 <h1 align="center">sec0</h1>
 
-<h3 align="center"><strong>The safest way to monitor, enforce context-aware guardrails, and drive your AI agents as conditions change</strong></h3>
+<h3 align="center"><strong>The safest way to monitor, enforce context-aware guardrails, and improve your AI agents as conditions change</strong></h3>
 <p align="center"><em>Sec0 is an open-source Runtime Assurance SDK for AI agents in production</em></p>
 <p align="center"><em>Built to interoperate with any stack.</em></p>
 
@@ -36,7 +36,7 @@
 
 ---
 ## What Is Sec0?
-Sec0 provides a context-aware runtime for governing AI workflows with guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, data access, policy outcomes, and human-in-the-loop interventions to support safe, continuous improvement of AI agents.
+Sec0 provides a protocol-agnostic, context-aware runtime for governing AI workflows with guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, data access, policy outcomes, and human-in-the-loop interventions to support safe, continuous improvement of AI agents.
 
 ## Installation
 
