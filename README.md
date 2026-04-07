@@ -39,7 +39,7 @@ npm install @coreax/sdk
 ---
 
 ## What Is CoreAX?
-CoreAX, formerly Sec0, is an open-source SDK and runtime infrastructure for governing AI workflows with context-aware guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, policy outcomes, and human-in-the-loop interventions to support safe, continuous agent improvement.
+CoreAX or Core Agent Experience, formerly Sec0, is an open-source SDK and runtime infrastructure for governing AI workflows with context-aware guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, policy outcomes, and human-in-the-loop interventions to support safe, continuous agent improvement.
 
 ## Installation
 
