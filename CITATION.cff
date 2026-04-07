@@ -7,5 +7,5 @@ authors:
   - name: "WormAI, Inc."
 version: "0.2.3"
 license: "Apache-2.0"
-repository-code: "https://github.com/teluashish0/sec0-sdk"
-url: "https://github.com/teluashish0/sec0-sdk"
+repository-code: "https://github.com/teluashish0/coreax"
+url: "https://github.com/teluashish0/coreax"

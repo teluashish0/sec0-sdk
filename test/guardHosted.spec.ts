@@ -41,7 +41,7 @@ describe("hosted guard wiring", () => {
         return jsonResponse({
           tenant: "tenant-a",
           env: "dev",
-          clientName: "sec0-sdk",
+          clientName: "@coreax/sdk",
           clientVersion: "0.2.3",
         });
       }

@@ -6,13 +6,13 @@ function readJson(filePath: string): any {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-describe("sec0-sdk package surface", () => {
+describe("@coreax/sdk package surface", () => {
   const packageDir = path.resolve(__dirname, "..");
   const packageJson = readJson(path.join(packageDir, "package.json"));
   const middlewareIndexPath = path.join(packageDir, "src", "middleware", "index.ts");
 
-  it("keeps the canonical OSS sec0 export surface on the workspace package", () => {
-    expect(packageJson.name).toBe("sec0-sdk");
+  it("publishes the canonical @coreax/sdk export surface", () => {
+    expect(packageJson.name).toBe("@coreax/sdk");
 
     const expectedSubpaths = [
       ".",
@@ -39,10 +39,11 @@ describe("sec0-sdk package surface", () => {
     }
   });
 
-  it("keeps the standalone release repo on the canonical public package identity", () => {
+  it("keeps publish metadata aligned with the canonical package", () => {
     expect(packageJson.private).toBe(false);
-    expect(packageJson.name).toBe("sec0-sdk");
-    expect(packageJson.publishConfig?.access).toBe("public");
+    expect(packageJson.name).toBe("@coreax/sdk");
+    expect(packageJson.scripts?.prepublishOnly).toBe("npm run publish:guard");
+    expect(String(packageJson.description || "")).toContain("Coreax SDK");
   });
 
   it("keeps middleware/index.ts as a thin public barrel", () => {

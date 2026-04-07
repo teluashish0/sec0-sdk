@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/teluashish0/sec0-sdk/main/public/sec0_logo.png" alt="Sec0 logo" width="70">
+  <img src="https://raw.githubusercontent.com/teluashish0/coreax/main/public/sec0_logo.png" alt="Coreax logo" width="70">
 </p>
 
-<h1 align="center">sec0</h1>
+<h1 align="center">Coreax SDK</h1>
 
 <h3 align="center"><strong>The safest way to monitor, enforce context-aware guardrails, and improve your AI agents as conditions change</strong></h3>
-<p align="center"><em>Sec0 is an open-source Runtime Assurance SDK for AI agents in production</em></p>
+<p align="center"><em>Coreax, formerly Sec0, is an open-source Runtime Assurance SDK for AI agents in production</em></p>
 <p align="center"><em>Built to interoperate with any stack.</em></p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/sec0-sdk"><img src="https://img.shields.io/npm/v/sec0-sdk" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/sec0-sdk"><img src="https://img.shields.io/npm/dm/sec0-sdk" alt="npm downloads"></a>
-  <a href="https://github.com/teluashish0/sec0-sdk/blob/main/LICENSE"><img src="https://img.shields.io/github/license/teluashish0/sec0-sdk" alt="license"></a>
+  <a href="https://www.npmjs.com/package/@coreax/sdk"><img src="https://img.shields.io/npm/v/%40coreax%2Fsdk" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@coreax/sdk"><img src="https://img.shields.io/npm/dm/%40coreax%2Fsdk" alt="npm downloads"></a>
+  <a href="https://github.com/teluashish0/coreax/blob/main/LICENSE"><img src="https://img.shields.io/github/license/teluashish0/coreax" alt="license"></a>
   <a href="https://app.sec0.ai/"><img src="https://img.shields.io/badge/Dashboard-app.sec0.ai-22c55e" alt="dashboard"></a>
 </p>
 
@@ -30,16 +30,42 @@
 
 ---
 
-## What Is Sec0?
-Sec0 is an open-source SDK and runtime infrastructure for governing AI workflows with context-aware guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, policy outcomes, and human-in-the-loop interventions to support safe, continuous agent improvement.
+> Migration note: `@coreax/sdk` is the canonical package name. The legacy `sec0-sdk` package and `sec0*` exports remain available as compatibility paths while you migrate existing code.
+
+```bash
+npm uninstall sec0-sdk
+npm install @coreax/sdk
+```
+
+Replace imports like:
+
+```ts
+import { createCoreaxGuard } from "sec0-sdk/guard";
+```
+
+with:
+
+```ts
+import { createCoreaxGuard } from "@coreax/sdk/guard";
+```
+
+Registry deprecation for the legacy package:
+
+```bash
+npm deprecate sec0-sdk "Package renamed to @coreax/sdk. Install with: npm i @coreax/sdk"
+```
+
+---
+
+## What Is Coreax?
+Coreax, formerly Sec0, is an open-source SDK and runtime infrastructure for governing AI workflows with context-aware guardrails that evolve alongside your agents. It captures and curates high-quality trajectory data from orchestrator decisions, agent actions, tool calls, policy outcomes, and human-in-the-loop interventions to support safe, continuous agent improvement.
 
 ## Installation
 
 **Prerequisites:** Node >= 20.
 
-Install in an app:
 ```bash
-npm install sec0-sdk
+npm install @coreax/sdk
 ```
 
 Build from this repository:
@@ -94,15 +120,15 @@ Field notes:
 
 Wrap your server:
 ```typescript
-import { sec0SecurityMiddleware } from "sec0-sdk/middleware";
-import { LocalDevSigner } from "sec0-sdk/signer";
-import { parsePolicyYaml } from "sec0-sdk/policy";
+import { coreaxSecurityMiddleware } from "@coreax/sdk/middleware";
+import { LocalDevSigner } from "@coreax/sdk/signer";
+import { parsePolicyYaml } from "@coreax/sdk/policy";
 import fs from "node:fs";
 
 const server = createYourMcpServer();
 const policy = parsePolicyYaml(fs.readFileSync("./policy.yaml", "utf8"));
 
-sec0SecurityMiddleware({
+coreaxSecurityMiddleware({
   policy,
   signer: LocalDevSigner.fromKeyRef(policy.signing.key_ref),
   otel: {
@@ -158,12 +184,12 @@ controlPlane:
 
 Initialize and decorate:
 ```typescript
-import { initializeSec0App, sec0, AgentManager } from "sec0-sdk/instrumentation";
+import { initializeCoreaxApp, coreax, AgentManager } from "@coreax/sdk/instrumentation";
 
-initializeSec0App("./sec0.config.yaml");
+initializeCoreaxApp("./sec0.config.yaml");
 
 class OrderAgent {
-  @sec0.agent()
+  @coreax.agent()
   async run(ctx: any, input: { orderId: string }, manager: AgentManager) {
     manager.agent.setState({ order_id: input.orderId });
     manager.agent.setMetadata({ received_at: Date.now() });
@@ -176,7 +202,7 @@ class OrderAgent {
 }
 
 class Workflow {
-  @sec0.orchestrator()
+  @coreax.orchestrator()
   async orchestrate(ctx: any, input: any, manager: AgentManager) {
     manager.agent.objective("Plan and execute the workflow safely.");
     return { ok: true };
@@ -188,7 +214,7 @@ class Workflow {
 
 For cross-network tool calls:
 ```typescript
-import { callToolViaGateway } from "sec0-sdk/middleware";
+import { callToolViaGateway } from "@coreax/sdk/middleware";
 
 const out = await callToolViaGateway({
   gatewayBaseUrl: "https://YOUR_GATEWAY_DOMAIN",
@@ -209,13 +235,13 @@ const out = await callToolViaGateway({
 ### 4. Start a Gateway Server
 
 ```typescript
-import { startGatewayServer } from "sec0-sdk/gateway";
-import { InMemoryAdapter } from "sec0-sdk/gateway";
-import { Sec0Appender } from "sec0-sdk/audit";
-import { LocalDevSigner } from "sec0-sdk/signer";
+import { startGatewayServer } from "@coreax/sdk/gateway";
+import { InMemoryAdapter } from "@coreax/sdk/gateway";
+import { CoreaxAppender } from "@coreax/sdk/audit";
+import { LocalDevSigner } from "@coreax/sdk/signer";
 
 const signer = LocalDevSigner.fromKeyRef("file://./.sec0/keys/ed25519.key");
-const appender = new Sec0Appender({ config: { dir: ".sec0" }, signer });
+const appender = new CoreaxAppender({ config: { dir: ".sec0" }, signer });
 
 startGatewayServer({
   port: 8088,
@@ -244,7 +270,7 @@ See [Guard API](#guard-api) near the end of this README.
 ### Agent Guard (Prompt Injection & PII Detection)
 
 ```typescript
-sec0SecurityMiddleware({
+coreaxSecurityMiddleware({
   policy,
   signer: LocalDevSigner.fromKeyRef(policy.signing.key_ref),
   sec0: { dir: ".sec0" },
@@ -401,33 +427,33 @@ observability:
 
 | Subpath | Description |
 |---------|-------------|
-| `sec0-sdk/guard` | High-level guard API for standalone/dashboard/hybrid checks with optional escalation lifecycle |
-| `sec0-sdk/instrumentation` | Hop-aware decorators + config-driven identity/state propagation for agents/orchestrators/tools |
-| `sec0-sdk/gateway` | Cross-network gateway: authn/z, entitlements, quotas, vendor token brokering, dedupe/idempotency, audit |
-| `sec0-sdk/middleware` | Runtime policy enforcement + audit envelopes for tool servers |
-| `sec0-sdk/audit` | Append-only NDJSON writer with daily rotation and optional presigned uploads |
-| `sec0-sdk/signer` | Ed25519 signing/verification and deterministic JSON canonicalization |
-| `sec0-sdk/agent-state` | Canonical, header-safe agent state encoding/decoding + analytics conventions |
-| `sec0-sdk/policy` | Policy schema + YAML parsing and validation |
-| `sec0-sdk/mandate-ap2` | AP2 mandate verification helpers for multi-hop enforcement |
-| `sec0-sdk/otel` | OpenTelemetry helpers |
-| `sec0-sdk/integrations/openclaw` | Host integrations (Moltbot adapters) |
+| `@coreax/sdk/guard` | High-level guard API for standalone/dashboard/hybrid checks with optional escalation lifecycle |
+| `@coreax/sdk/instrumentation` | Hop-aware decorators + config-driven identity/state propagation for agents/orchestrators/tools |
+| `@coreax/sdk/gateway` | Cross-network gateway: authn/z, entitlements, quotas, vendor token brokering, dedupe/idempotency, audit |
+| `@coreax/sdk/middleware` | Runtime policy enforcement + audit envelopes for tool servers |
+| `@coreax/sdk/audit` | Append-only NDJSON writer with daily rotation and optional presigned uploads |
+| `@coreax/sdk/signer` | Ed25519 signing/verification and deterministic JSON canonicalization |
+| `@coreax/sdk/agent-state` | Canonical, header-safe agent state encoding/decoding + analytics conventions |
+| `@coreax/sdk/policy` | Policy schema + YAML parsing and validation |
+| `@coreax/sdk/mandate-ap2` | AP2 mandate verification helpers for multi-hop enforcement |
+| `@coreax/sdk/otel` | OpenTelemetry helpers |
+| `@coreax/sdk/integrations/openclaw` | Host integrations (Moltbot adapters) |
 
 
 ---
 
 ## Guard API
 
-Add `sec0-sdk/guard` after the core SDK setup above when the side effect lives in application code instead of inside middleware or the gateway. Typical cases are outbound Discord/Slack/email messages, direct `fetch(...)` calls, or tool invocations triggered outside an MCP server. The integration flow matches the rest of the SDK: create one guard at startup, point it at policy, then wrap the risky action where it happens.
+Add `@coreax/sdk/guard` after the core SDK setup above when the side effect lives in application code instead of inside middleware or the gateway. Typical cases are outbound Discord/Slack/email messages, direct `fetch(...)` calls, or tool invocations triggered outside an MCP server. The integration flow matches the rest of the SDK: create one guard at startup, point it at policy, then wrap the risky action where it happens.
 
 ### 5. Create a Guard Once at App Startup
 
 Start with a local rule set for the fastest integration:
 
 ```typescript
-import { createSec0Guard } from "sec0-sdk/guard";
+import { createCoreaxGuard } from "@coreax/sdk/guard";
 
-const guard = createSec0Guard({
+const guard = createCoreaxGuard({
   mode: "standalone",
   provider: {
     local: {
@@ -477,7 +503,7 @@ await guard.execute(
 ### 7. Move Policy to the Dashboard Without Changing Call Sites
 
 ```typescript
-const guard = createSec0Guard({
+const guard = createCoreaxGuard({
   mode: "dashboard",
   provider: {
     remote: {
@@ -493,7 +519,7 @@ Use `dashboard` when policy should be managed centrally in hosted Sec0. Your app
 ### 8. Use Hybrid Mode for Remote-First with Local Fallback
 
 ```typescript
-const guard = createSec0Guard({
+const guard = createCoreaxGuard({
   mode: "hybrid",
   provider: {
     precedence: "remote-first",
@@ -511,9 +537,9 @@ This is the easiest production setup when you want centrally managed policy but 
 ### 9. Turn on Approvals Only for Actions That Need Human Review
 
 ```typescript
-import { createSec0Guard } from "sec0-sdk/guard";
+import { createCoreaxGuard } from "@coreax/sdk/guard";
 
-const guard = createSec0Guard({
+const guard = createCoreaxGuard({
   mode: "dashboard",
   provider: {
     remote: {
@@ -523,7 +549,7 @@ const guard = createSec0Guard({
   },
   escalation: {
     tenant: process.env.SEC0_TENANT_ID,
-    // If escalation.auth is omitted, createSec0Guard inherits the remote auth above.
+    // If escalation.auth is omitted, createCoreaxGuard inherits the remote auth above.
     waitForResolutionByDefault: true,
     timeoutMs: 5 * 60_000,
   },
@@ -541,7 +567,7 @@ That is the natural hosted path: the app only needs Sec0 control-plane auth, and
 
 - Start with `standalone` while wiring Guard into the call sites that own the side effect.
 - Switch to `dashboard` or `hybrid` later without rewriting your `guard.execute(...)` calls.
-- Keep `sec0-sdk/middleware` for MCP/tool-server enforcement and use `sec0-sdk/guard` for app-level side effects that happen outside those boundaries.
+- Keep `@coreax/sdk/middleware` for MCP/tool-server enforcement and use `@coreax/sdk/guard` for app-level side effects that happen outside those boundaries.
 
 ---
 
@@ -562,7 +588,7 @@ pnpm run test
 3. Create a branch from `main`
 4. Open a PR
 
-Found a bug? [Open an issue](https://github.com/teluashish0/sec0-sdk/issues).
+Found a bug? [Open an issue](https://github.com/teluashish0/coreax/issues).
 
 ---
 

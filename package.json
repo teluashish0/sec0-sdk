@@ -1,8 +1,8 @@
 {
-  "name": "sec0-sdk",
+  "name": "@coreax/sdk",
   "private": false,
   "version": "0.2.3",
-  "description": "Open-source Sec0 TypeScript SDK with decorators, middleware, gateway helpers, guard, audit, and protocol utilities",
+  "description": "Coreax SDK for runtime assurance and agent guardrails, with sec0 compatibility aliases for migration.",
   "license": "Apache-2.0",
   "author": "WormAI, Inc.",
   "packageManager": "npm@10.8.2",
@@ -97,7 +97,9 @@
     "build": "rimraf dist && tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
     "pack:dry-run": "npm pack --dry-run",
-    "boundary:check": "node ./tools/check-package-boundaries.mjs . sec0-sdk \"from\\\\s+[\\\"']@sec0/client-sdk(?:[\\\"'/])\" \"from\\\\s+[\\\"']@sec0/hosted(?:[\\\"'/])\" \"from\\\\s+[\\\"'][^\\\"']*sec0-backend[^\\\"']*[\\\"']\"",
+    "publish:guard": "node ./tools/guard-npm-publish.mjs",
+    "prepublishOnly": "npm run publish:guard",
+    "boundary:check": "node ./tools/check-package-boundaries.mjs . @coreax/sdk \"from\\\\s+[\\\"']@sec0/client-sdk(?:[\\\"'/])\" \"from\\\\s+[\\\"']@sec0/hosted(?:[\\\"'/])\" \"from\\\\s+[\\\"'][^\\\"']*sec0-backend[^\\\"']*[\\\"']\"",
     "lint": "npm run boundary:check && npm run typecheck",
     "test": "vitest run --passWithNoTests",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run pack:check",
@@ -135,13 +137,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teluashish0/sec0-sdk.git"
+    "url": "git+https://github.com/teluashish0/coreax.git"
   },
-  "homepage": "https://github.com/teluashish0/sec0-sdk#readme",
+  "homepage": "https://github.com/teluashish0/coreax#readme",
   "bugs": {
-    "url": "https://github.com/teluashish0/sec0-sdk/issues"
+    "url": "https://github.com/teluashish0/coreax/issues"
   },
   "keywords": [
+    "coreax",
     "sec0",
     "security",
     "ai",

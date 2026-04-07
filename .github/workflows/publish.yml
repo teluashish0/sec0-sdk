@@ -37,6 +37,9 @@ jobs:
       - name: Verify
         run: npm run verify
 
-      - name: Publish sec0-sdk
+      - name: Publish @coreax/sdk
         if: ${{ github.event.inputs.publish == 'true' }}
+        env:
+          SEC0_ALLOW_PUBLISH: "1"
+          SEC0_PUBLISH_PACKAGE: "@coreax/sdk"
         run: npm publish --provenance --access public

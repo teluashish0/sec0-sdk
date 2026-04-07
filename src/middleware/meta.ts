@@ -15,8 +15,13 @@ export type Sec0Meta = {
   };
 };
 
+export type CoreaxMeta = Sec0Meta;
+
 /**
  * Attaches sec0 metadata to a handler in a non-enumerable property for later discovery.
+ */
+/**
+ * @deprecated Use withCoreaxMeta for new integrations.
  */
 export function withSec0Meta<T extends Function>(fn: T, meta: Sec0Meta): T {
   try {
@@ -31,6 +36,9 @@ export function withSec0Meta<T extends Function>(fn: T, meta: Sec0Meta): T {
 export function getSec0Meta(fn: any): Sec0Meta | undefined {
   try { return fn && typeof fn === 'function' ? (fn as any).__sec0_meta as Sec0Meta : undefined; } catch { return undefined; }
 }
+
+export const withCoreaxMeta = withSec0Meta;
+export const getCoreaxMeta = getSec0Meta;
 
 /**
  * Ensures a string-like option is provided and returns its trimmed value.
@@ -66,5 +74,4 @@ export function requireNonEmptyArray<T>(value: T[] | undefined, label: string): 
   }
   return value;
 }
-
 

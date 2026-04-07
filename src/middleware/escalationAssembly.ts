@@ -123,7 +123,7 @@ export async function createEscalationFromState(input: EscalationAssemblyInput):
           }
         : {}),
       metadata: {
-        source: "sec0-sdk",
+        source: "@coreax/sdk",
         layer: "middleware",
         tool_ref: toolUri(input.server.name, input.tool),
         server: input.server.name,

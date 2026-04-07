@@ -200,16 +200,19 @@ export type Sec0MoltbotLocalPolicySourceConfig = {
   yaml?: string;
   object?: PolicyObject;
 };
+export type CoreaxMoltbotLocalPolicySourceConfig = Sec0MoltbotLocalPolicySourceConfig;
 
 export type Sec0MoltbotControlPlanePolicySourceConfig = {
   source: "control-plane";
   controlPlaneSource?: Partial<Omit<ControlPlanePolicySource, "source">>;
   refreshMs?: number;
 };
+export type CoreaxMoltbotControlPlanePolicySourceConfig = Sec0MoltbotControlPlanePolicySourceConfig;
 
 export type Sec0MoltbotPolicySourceConfig =
   | Sec0MoltbotLocalPolicySourceConfig
   | Sec0MoltbotControlPlanePolicySourceConfig;
+export type CoreaxMoltbotPolicySourceConfig = Sec0MoltbotPolicySourceConfig;
 
 export type Sec0MoltbotConfig = {
   // Preferred explicit policy-source selection. Use this to switch cleanly between local and
@@ -301,6 +304,7 @@ export type Sec0MoltbotConfig = {
     };
   };
 };
+export type CoreaxMoltbotConfig = Sec0MoltbotConfig;
 
 export type MoltbotHookBundle = {
   beforeToolCall: (event: MoltbotHookEvent, ctx?: MoltbotHookContext) => Promise<MoltbotHookResult>;

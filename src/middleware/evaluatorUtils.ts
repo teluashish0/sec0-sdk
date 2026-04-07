@@ -134,7 +134,7 @@ export function buildDefaultMiddlewareEvaluatorInput(params: {
       delegations: [],
     },
     runtimeContext: {
-      integrationSurface: "sec0-sdk",
+      integrationSurface: "@coreax/sdk",
       executionLayer: "middleware",
       runId: params.agentRunId,
       traceId: readHeaderCaseInsensitive(params.ctx.headers as any, "x-trace-id"),

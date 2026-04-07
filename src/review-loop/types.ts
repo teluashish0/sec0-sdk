@@ -32,6 +32,7 @@ export interface ActionProposal {
 }
 
 export type Sec0DecisionValue = "allow" | "deny" | "escalate";
+export type CoreaxDecisionValue = Sec0DecisionValue;
 
 export interface Sec0Decision {
   proposal_id: string;
@@ -43,6 +44,8 @@ export interface Sec0Decision {
   metadata?: ReviewJsonObject;
   created_at: string;
 }
+
+export type CoreaxDecision = Sec0Decision;
 
 export type HumanResolutionDecision = "approve" | "reject" | "edit";
 

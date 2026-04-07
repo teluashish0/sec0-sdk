@@ -87,6 +87,9 @@ function mergeHostedEscalationDefaults(config: Sec0GuardConfig): Sec0GuardConfig
   };
 }
 
+/**
+ * @deprecated Use createCoreaxGuard for new integrations.
+ */
 export function createSec0Guard(config: Sec0GuardConfig = {}): Sec0Guard {
   const mode = resolveGuardMode(config);
   const runtime = toRuntimeContext(config);
@@ -298,6 +301,12 @@ export function createSec0Guard(config: Sec0GuardConfig = {}): Sec0Guard {
   };
 }
 
+export const createCoreaxGuard = createSec0Guard;
+
 export * from "./types";
+export type {
+  Sec0Guard as CoreaxGuard,
+  Sec0GuardConfig as CoreaxGuardConfig,
+} from "./types";
 export * from "./errors";
 export { createNoopApprovalTransport, createApprovalsBridgeTransport } from "./transport";

@@ -86,6 +86,8 @@ export interface Sec0Config {
   }
 }
 
+export type CoreaxConfig = Sec0Config;
+
 // Global configuration state
 let globalConfig: Sec0Config | null = null
 
@@ -186,6 +188,8 @@ export function initSec0(configPathOrObject: string | Sec0Config): Sec0Config {
   return globalConfig
 }
 
+export const initCoreax = initSec0
+
 /**
  * Helper for deep merging configuration objects.
  * - Objects are merged recursively.
@@ -260,6 +264,8 @@ export function loadAndInitSec0<T extends Record<string, any>>(options: AppConfi
 
   return merged
 }
+
+export const loadAndInitCoreax = loadAndInitSec0
 
 const STANDARD_APP_ENVIRONMENTS = new Set(['dev', 'staging', 'prod'])
 
@@ -793,12 +799,16 @@ export function getSec0AppConfig<T extends StandardAppConfig = StandardAppConfig
   return loadStandardConfig<T>()
 }
 
+export const getCoreaxAppConfig = getSec0AppConfig
+
 /**
  * Explicitly initialize the Sec0 application config (idempotent).
  */
 export function initializeSec0App(configPath: string = 'sec0.config.yaml'): void {
   loadStandardConfig(configPath)
 }
+
+export const initializeCoreaxApp = initializeSec0App
 
 /**
  * Resolve Sec0 directories defined in sec0.config.yaml.
@@ -811,6 +821,8 @@ export function getSec0Directories(): { sec0Dir: string; appenderDir?: string } 
     : undefined
   return { sec0Dir, appenderDir }
 }
+
+export const getCoreaxDirectories = getSec0Directories
 
 // Standard application configuration strategy for Sec0 enabled apps.
 // This is a drop-in replacement for getAppConfig that:
@@ -1072,6 +1084,8 @@ function createHierarchyResolver(label: string, options: HierarchyResolutionOpti
     return memo
   }
 }
+
+export const seedCoreaxRun = seedSec0Run
 
 async function resolveHierarchyFor(label: string, options: HierarchyResolutionOptions): Promise<HierarchyMetadata> {
   const { apiKey, controlPlaneUrl } = requireHierarchyInputs(label, options)
@@ -2126,7 +2140,7 @@ async function enforceHopPolicy(input: HopEnforcementInput): Promise<HopEnforcem
         nodeId,
         agentRef: runId,
         metadata: {
-          source: 'sec0-sdk',
+          source: '@coreax/sdk',
           layer: 'instrumentation',
           hop: input.hopType,
           server: identityFields.server,
@@ -3653,6 +3667,14 @@ export function sec0Skill(hopKey?: string): MethodDecorator {
   }
 }
 
+export const coreaxAgent = sec0Agent
+export const coreaxOrchestrator = sec0Orchestrator
+export const coreaxGateway = sec0Gateway
+export const coreaxServer = sec0Server
+export const coreaxMiddleware = sec0Middleware
+export const coreaxTool = sec0Tool
+export const coreaxSkill = sec0Skill
+
 export type Sec0DecoratorNamespace = Readonly<{
   agent: typeof sec0Agent
   orchestrator: typeof sec0Orchestrator
@@ -3661,6 +3683,16 @@ export type Sec0DecoratorNamespace = Readonly<{
   middleware: typeof sec0Middleware
   tool: typeof sec0Tool
   skill: typeof sec0Skill
+}>
+
+export type CoreaxDecoratorNamespace = Readonly<{
+  agent: typeof coreaxAgent
+  orchestrator: typeof coreaxOrchestrator
+  gateway: typeof coreaxGateway
+  server: typeof coreaxServer
+  middleware: typeof coreaxMiddleware
+  tool: typeof coreaxTool
+  skill: typeof coreaxSkill
 }>
 
 export const sec0: Sec0DecoratorNamespace = Object.freeze({
@@ -3673,6 +3705,16 @@ export const sec0: Sec0DecoratorNamespace = Object.freeze({
   skill: sec0Skill,
 })
 
+export const coreax: CoreaxDecoratorNamespace = Object.freeze({
+  agent: coreaxAgent,
+  orchestrator: coreaxOrchestrator,
+  gateway: coreaxGateway,
+  server: coreaxServer,
+  middleware: coreaxMiddleware,
+  tool: coreaxTool,
+  skill: coreaxSkill,
+})
+
 export const sec0Decorators = {
   'sec0-agent': sec0Agent,
   'sec0-orchestrator': sec0Orchestrator,
@@ -3681,4 +3723,14 @@ export const sec0Decorators = {
   'sec0-middleware': sec0Middleware,
   'sec0-tool': sec0Tool,
   'sec0-skill': sec0Skill,
+} as const
+
+export const coreaxDecorators = {
+  'coreax-agent': coreaxAgent,
+  'coreax-orchestrator': coreaxOrchestrator,
+  'coreax-gateway': coreaxGateway,
+  'coreax-server': coreaxServer,
+  'coreax-middleware': coreaxMiddleware,
+  'coreax-tool': coreaxTool,
+  'coreax-skill': coreaxSkill,
 } as const

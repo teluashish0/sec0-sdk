@@ -1,6 +1,7 @@
 export * from "./securityMiddleware";
 
-export { withSec0Meta, getSec0Meta } from "./meta";
+export type { Sec0Meta, CoreaxMeta } from "./meta";
+export { withSec0Meta, getSec0Meta, withCoreaxMeta, getCoreaxMeta } from "./meta";
 export {
   callToolViaGateway,
   callToolViaGatewayWithAgent,
@@ -68,12 +69,16 @@ export { createControlPlaneEscalationReporter, createNoopEscalationReporter } fr
 export { createControlPlanePolicyProvider, createStaticPolicyProvider } from "./adapters/policyProvider";
 export { publishPolicyToControlPlaneIfChanged } from "./adapters/policyPublisher";
 export { createRuntimeInvoker } from "./adapters/runtimeInvoker";
-export { createSec0AuditSink } from "./adapters/auditSink";
+export { createSec0AuditSink, createCoreaxAuditSink } from "./adapters/auditSink";
 export {
   createHostedSec0Preset,
+  createHostedCoreaxPreset,
   createLocalSec0Preset,
+  createLocalCoreaxPreset,
   type HostedSec0PresetOptions,
+  type HostedCoreaxPresetOptions,
   type LocalSec0PresetOptions,
+  type LocalCoreaxPresetOptions,
   type MiddlewarePresetDependencies,
 } from "./presets";
 export { uploadScanEvidence } from "./adapters/scanEvidenceUploader";

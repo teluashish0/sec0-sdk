@@ -158,6 +158,9 @@ async function publishPolicyToControlPlaneIfChanged(opts: {
 /**
  * Async initialization helper to resolve hierarchy from API key
  */
+/**
+ * @deprecated Use initializeCoreaxMiddleware for new integrations.
+ */
 export async function initializeSec0Middleware(opts: MiddlewareOptions): Promise<{ tenant: string; env: string; clientName: string; clientVersion: string }> {
   const controlPlaneUrl = resolveControlPlaneUrl(opts.controlPlaneUrl);
   const apiKey = extractApiKey({
@@ -180,6 +183,9 @@ export async function initializeSec0Middleware(opts: MiddlewareOptions): Promise
 
 /**
  * Factory that decorates an MCP server with sec0 security instrumentation.
+ */
+/**
+ * @deprecated Use coreaxSecurityMiddleware for new integrations.
  */
 export const sec0SecurityMiddleware = (opts: MiddlewareOptions) => (server: McpServerLike) => {
   // Allow policy to be passed as YAML string as well; parse to object if needed
@@ -549,11 +555,22 @@ export const sec0SecurityMiddleware = (opts: MiddlewareOptions) => (server: McpS
   registryState.freeze();
 };
 
+/**
+ * @deprecated Use coreaxLocalMiddleware for new integrations.
+ */
 export const sec0LocalMiddleware = (opts: LocalSec0PresetOptions) => sec0SecurityMiddleware(createLocalSec0Preset(opts));
+/**
+ * @deprecated Use coreaxHostedMiddleware for new integrations.
+ */
 export const sec0HostedMiddleware = (
   opts: HostedSec0PresetOptions,
   deps?: MiddlewarePresetDependencies,
 ) => sec0SecurityMiddleware(createHostedSec0Preset(opts, deps));
+
+export const initializeCoreaxMiddleware = initializeSec0Middleware;
+export const coreaxSecurityMiddleware = sec0SecurityMiddleware;
+export const coreaxLocalMiddleware = sec0LocalMiddleware;
+export const coreaxHostedMiddleware = sec0HostedMiddleware;
 
 // Backwards-compat export name
 export const mcpAuditMiddleware = sec0SecurityMiddleware;

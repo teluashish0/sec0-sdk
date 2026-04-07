@@ -13,6 +13,18 @@ export type {
 export {
   createEscalationManager,
   createHumanReviewManager,
+  CoreaxEscalationError,
+  CoreaxEscalationCreateError,
+  CoreaxEscalationGetError,
+  CoreaxEscalationResolveError,
+  CoreaxEscalationWaitError,
+  CoreaxEscalationAbortError,
+  CoreaxHumanReviewError,
+  CoreaxHumanReviewCreateError,
+  CoreaxHumanReviewGetError,
+  CoreaxHumanReviewResolveError,
+  CoreaxHumanReviewWaitError,
+  CoreaxHumanReviewAbortError,
   Sec0EscalationError,
   Sec0EscalationCreateError,
   Sec0EscalationGetError,
@@ -27,6 +39,8 @@ export {
   Sec0HumanReviewAbortError,
 } from "./review-loop";
 export type {
+  CoreaxDecision,
+  CoreaxDecisionValue,
   EscalationManager,
   EscalationManagerConfig,
   EscalationResolution,
@@ -36,17 +50,30 @@ export type {
   HumanReviewResolution,
   HumanReviewWaitOptions,
 } from "./review-loop";
-export { createSec0Guard, createNoopApprovalTransport, createApprovalsBridgeTransport } from "./guard";
+export {
+  createSec0Guard,
+  createCoreaxGuard,
+  createNoopApprovalTransport,
+  createApprovalsBridgeTransport,
+} from "./guard";
 export type {
   Sec0Guard,
+  CoreaxGuard,
   Sec0GuardConfig,
+  CoreaxGuardConfig,
   GuardDecision,
   GuardInput,
   GuardPolicy,
   GuardRule,
 } from "./guard";
-export { Sec0Appender } from "./audit";
-export type { Sec0Config, AuditEnvelopeMinimal, RawPayloadEvent } from "./audit";
+export { Sec0Appender, CoreaxAppender } from "./audit";
+export type {
+  Sec0Config,
+  CoreaxAuditConfig,
+  AuditEnvelopeMinimal,
+  RawPayloadEvent,
+  CoreaxAppenderOptions,
+} from "./audit";
 export type {
   EvaluatorInput,
   EvaluatorOutput,

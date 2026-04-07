@@ -19,6 +19,8 @@ export class Sec0GuardError extends Error {
   }
 }
 
+export const CoreaxGuardError = Sec0GuardError;
+
 export class GuardConfigError extends Sec0GuardError {
   constructor(message: string, details?: Record<string, unknown>) {
     super("SEC0_GUARD_CONFIG_INVALID", message, details);

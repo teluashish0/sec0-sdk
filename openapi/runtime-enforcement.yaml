@@ -95,7 +95,7 @@ components:
       properties:
         integrationSurface:
           type: string
-          enum: ['sec0-sdk']
+          enum: ['@coreax/sdk']
         executionLayer:
           type: string
           enum: ['middleware', 'gateway', 'decorator']

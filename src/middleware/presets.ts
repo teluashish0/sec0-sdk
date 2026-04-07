@@ -15,6 +15,8 @@ export type LocalSec0PresetOptions = Omit<MiddlewareOptions, "adapters" | "polic
 };
 
 export type HostedSec0PresetOptions = Omit<MiddlewareOptions, "adapters">;
+export type LocalCoreaxPresetOptions = LocalSec0PresetOptions;
+export type HostedCoreaxPresetOptions = HostedSec0PresetOptions;
 
 export type MiddlewarePresetDependencies = {
   controlPlaneClient?: ControlPlaneClient;
@@ -43,6 +45,9 @@ function parsePresetPolicy(policy: PolicyObject | string): PolicyObject {
   return normalizePresetPolicyObject(policy);
 }
 
+/**
+ * @deprecated Use createLocalCoreaxPreset for new integrations.
+ */
 export function createLocalSec0Preset(opts: LocalSec0PresetOptions): MiddlewareOptions {
   const policy = parsePresetPolicy(opts.policy);
   return {
@@ -61,6 +66,11 @@ export function createLocalSec0Preset(opts: LocalSec0PresetOptions): MiddlewareO
   };
 }
 
+export const createLocalCoreaxPreset = createLocalSec0Preset;
+
+/**
+ * @deprecated Use createHostedCoreaxPreset for new integrations.
+ */
 export function createHostedSec0Preset(
   opts: HostedSec0PresetOptions,
   deps?: MiddlewarePresetDependencies,
@@ -96,3 +106,5 @@ export function createHostedSec0Preset(
     },
   };
 }
+
+export const createHostedCoreaxPreset = createHostedSec0Preset;
